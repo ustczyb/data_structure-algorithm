@@ -1,6 +1,7 @@
 # coding=utf-8
 # 基本的排序算法 时间复杂度O(n^2) 空间复杂度O(1)
 
+
 def swap(nums, i, j):
     nums[i], nums[j] = nums[j], nums[i]
 
