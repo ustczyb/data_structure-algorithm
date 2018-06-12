@@ -1,5 +1,6 @@
 # coding=utf-8
 """
+最大堆
 最大堆的API主要有两个（实际上是一个）：
 1. max_heapify 给定一个节点，将以此节点为根的二叉树调整成最大堆
 2. 建堆（实际上就是循环调用max_heapify操作）
@@ -7,7 +8,7 @@
 from sort.primary_sort import swap
 
 
-class MaxHeap:
+class MaxHeap(object):
     # nums[]为堆的数组 size为堆大小
     def __init__(self, nums, size):
         self.nums = nums

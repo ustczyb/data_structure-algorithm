@@ -54,7 +54,7 @@ def heap_sort(nums):
 
 
 # 归并排序
-class MergeSort:
+class MergeSort(object):
     def __init__(self, nums):
         self.nums = nums
         self.nums_copy = nums[:]
