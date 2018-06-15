@@ -6,7 +6,7 @@
 
 
 # 快速排序
-from data_structure.heap import MaxHeap
+from sort.heap import MaxHeap
 from sort.primary_sort import swap
 
 
