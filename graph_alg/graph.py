@@ -1,11 +1,11 @@
 """
-图的数据结构和基本操作
+有向图的数据结构和基本操作
 """
 
 
 class Graph(object):
     """
-    无向图
+    图的邻接表表示方式
     """
 
     def __init__(self):
@@ -49,7 +49,7 @@ class Graph(object):
 
 def dfs(g, v):
     """
-    深度优先遍历
+    1.深度优先遍历
     :param g: 图g
     :param v: 遍历的起始顶点
     :return: 深度优先遍历顺序
@@ -71,7 +71,7 @@ def dfs(g, v):
 
 def dfs_path_to(g, start, end):
     """
-    dfs寻路
+    1.1 dfs寻路
     :param g:
     :param start: 起点
     :param end: 终点
@@ -84,10 +84,10 @@ def dfs_path_to(g, start, end):
         if start_vex in visited_set:
             return None
         visited_set.add(start_vex)
-        if end_vex in g.get_adj_vexs(start_vex):
+        if end_vex in g.get_adj_vexs(start_vex):    # 找到路径，返回
             path.append(start_vex)
             return start_vex
-        for adj_vex in g.get_adj_vexs(start_vex):
+        for adj_vex in g.get_adj_vexs(start_vex):   # 未找到，递归寻找
             if next_node_on_path(adj_vex, end_vex):
                 path.append(start_vex)
                 return start_vex
@@ -100,7 +100,7 @@ def dfs_path_to(g, start, end):
 
 def bfs(g, v):
     """
-    广度优先遍历
+    2.广度优先遍历
     :param g: 图g
     :param v: 遍历的起始顶点
     :return: 广度优先遍历顺序
@@ -122,7 +122,7 @@ def bfs(g, v):
 
 def bfs_path(g, start, end):
     """
-    bfs寻路
+    2.1 bfs寻路
     :param g:
     :param start:
     :param end:
@@ -153,35 +153,38 @@ def bfs_path(g, start, end):
     return path
 
 
-def counts_of_connected_component(g):
+def connected_component(g):
     """
-    图g的连通分量个数
+    3.图g的连通分量个数
     :param g:
     :return:
     """
     visited_set = set()
+    conn_components = {}
     count = 0
 
     def do_dfs(v):
         if v in visited_set:
             return
         visited_set.add(v)
+        conn_components[count].append(v)
         for w in g.get_adj_vexs(v):
             do_dfs(w)
 
     for v in g.vex_set():
         if v not in visited_set:
             count += 1
+            conn_components[count] = []
             do_dfs(v)
-    return count
+    return conn_components
 
 
-def init_graph():
+def init_graph(path):
     """
     初始化并返回一个图
     :return:
     """
-    file = open('/Users/zyb/IdeaProjects/data_structure&algorithm/data/tinyG.txt', 'r')
+    file = open(path, 'r')
     vex_num = file.readline()
     edge_num = file.readline()
     graph = Graph()
@@ -195,10 +198,10 @@ def init_graph():
 
 
 if __name__ == '__main__':
-    graph = init_graph()
+    graph = init_graph('/Users/zyb/IdeaProjects/data_structure&algorithm/data/tinyG.txt')
     # print(graph)
     # print(dfs(graph, '0'))
     # print(bfs(graph, '0'))
     # print(dfs_path_to(graph, '0', '3'))
-    # print(counts_of_connected_component(graph))
-    print(bfs_path(graph, '0', '3'))
+    print(connected_component(graph))
+    # print(bfs_path(graph, '0', '3'))
