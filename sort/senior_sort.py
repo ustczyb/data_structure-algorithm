@@ -13,13 +13,13 @@ from sort.primary_sort import swap
 def quick_sort(nums, begin, end):
     if begin >= end:
         return
-    mid = partation(nums, begin, end)
+    mid = partition(nums, begin, end)
     quick_sort(nums, begin, mid - 1)
     quick_sort(nums, mid + 1, end)
 
 
 # 快速排序的partation操作
-def partation(nums, begin, end):
+def partition(nums, begin, end):
     a = nums[begin]
     index = begin + 1
     for i in range(begin, end + 1):
@@ -28,6 +28,24 @@ def partation(nums, begin, end):
             index += 1
     swap(nums, begin, index - 1)
     return index - 1
+
+
+
+def three_direction_partition(nums, begin, end):
+    a = nums[begin]
+    less_index = begin + 1
+    equal_index = begin + 1
+    for i in range(begin + 1, end + 1):
+        if nums[i] == a:
+            swap(nums, i, equal_index)
+            equal_index += 1
+        elif nums[i] < a:
+            swap(nums, i, equal_index)
+            swap(nums, less_index, equal_index)
+            less_index += 1
+            equal_index += 1
+    swap(nums, begin, less_index - 1)
+    return (less_index - 1, equal_index)
 
 
 # 希尔排序
@@ -90,8 +108,10 @@ class MergeSort(object):
 
 
 if __name__ == '__main__':
-    nums = ['S', 'O', 'R', 'T', 'E', 'X', 'A', 'M', 'P', 'L', 'E']
-    mergeSort = MergeSort(nums)
-    mergeSort.merge_sort()
+    # nums = ['S', 'O', 'R', 'T', 'E', 'X', 'A', 'M', 'P', 'L', 'E']
+    # mergeSort = MergeSort(nums)
+    # mergeSort.merge_sort()
     # heap_sort(nums)
+    nums = [3, 1, 2, 4]
+    print(three_direction_partition(nums, 0, len(nums) - 1))
     print(nums)
